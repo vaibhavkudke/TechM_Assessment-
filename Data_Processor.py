@@ -26,14 +26,14 @@ def determine_player_type(row):
         return "Bowler"
     return None
 
-
+#replace below path with your directory/path before running the code.
 def main():
-    common_folder = "C:\\Users\\vkudke\\Downloads\\assignment\\assignment\\inputDataSet"
-    customer1_folder = "C:\\Users\\vkudke\\Downloads\\assignment\\assignment\\OutPut_Dataset\\Customer1"
-    customer2_folder = "C:\\Users\\vkudke\\Downloads\\assignment\\assignment\\OutPut_Dataset\\Customer2"
-    temp_folder = "C:\\Users\\vkudke\\Downloads\\assignment\\assignment\\ResultFolder"
+    common_folder = "C:\\Downloads\\assignment\\inputDataSet"
+    customer1_folder = "C:\\Downloads\\assignment\\OutPut_Dataset\\Customer1"
+    customer2_folder = "C:\\Downloads\\assignment\\OutPut_Dataset\\Customer2"
+    temp_folder = "C:\\Downloads\\assignment\\ResultFolder"
 
-    file_names = ["testDataSet1.csv", "testDataSet2.json"]
+    file_names = ["testDataSet1.csv", "testDataSet2.json"]  #Replace the file names with your files
     dataframes = [read_data(os.path.join(common_folder, file_name)) for file_name in file_names]
 
     merged_df = pd.concat(dataframes, ignore_index=True)
@@ -42,7 +42,7 @@ def main():
     # Fill NaN values in 'wickets' column with 0 and convert to integer
     merged_df['wickets'] = merged_df['wickets'].fillna(0).astype(int)
 
-    # Filter the data based on the given conditions
+    # Filter the data from the output files based on the given conditions
     filtered_df = merged_df.dropna(subset=['runs', 'wickets'])
     filtered_df = filtered_df[(filtered_df['age'] <= 50) & (filtered_df['age'] >= 15)]
 
