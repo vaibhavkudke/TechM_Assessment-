@@ -26,12 +26,12 @@ def determine_player_type(row):
         return "Bowler"
     return None
 
-# Replace the below path with the your directory path
+
 def main():
     common_folder = "C:\\Users\\vkudke\\Downloads\\assignment\\assignment\\inputDataSet"
     customer1_folder = "C:\\Users\\vkudke\\Downloads\\assignment\\assignment\\OutPut_Dataset\\Customer1"
     customer2_folder = "C:\\Users\\vkudke\\Downloads\\assignment\\assignment\\OutPut_Dataset\\Customer2"
-    temp_folder = "C:\\Users\\vkudke\\Downloads\\assignment\\assignment\\TempFolder"
+    temp_folder = "C:\\Users\\vkudke\\Downloads\\assignment\\assignment\\ResultFolder"
 
     file_names = ["testDataSet1.csv", "testDataSet2.json"]
     dataframes = [read_data(os.path.join(common_folder, file_name)) for file_name in file_names]
@@ -39,9 +39,10 @@ def main():
     merged_df = pd.concat(dataframes, ignore_index=True)
     merged_df['Player Type'] = merged_df.apply(determine_player_type, axis=1)
 
-    # output files were adding .0 in wicket so to avoid it used below logic to convert wickets into int
+    # Fill NaN values in 'wickets' column with 0 and convert to integer
     merged_df['wickets'] = merged_df['wickets'].fillna(0).astype(int)
 
+    # Filter the data based on the given conditions
     filtered_df = merged_df.dropna(subset=['runs', 'wickets'])
     filtered_df = filtered_df[(filtered_df['age'] <= 50) & (filtered_df['age'] >= 15)]
 
@@ -57,7 +58,17 @@ def main():
     test_output_file = os.path.join(customer1_folder, "test.csv")
     test_df.to_csv(test_output_file, index=False, sep=';')
 
-    final_output_file = os.path.join(temp_folder, "final_merged_data.csv")
+    # Add 'Result' column
+    def check_result(row):
+        if pd.isna(row['runs']) or pd.isna(row['wickets']):
+            return "FAIL"
+        if row['age'] > 50 or row['age'] < 15:
+            return "FAIL"
+        return "PASS"
+
+    merged_df['Result'] = merged_df.apply(check_result, axis=1)
+
+    final_output_file = os.path.join(temp_folder, "test_result.csv")
     merged_df.to_csv(final_output_file, index=False)
 
     print(f"Final merged data saved to: {final_output_file}")
