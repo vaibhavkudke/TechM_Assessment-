@@ -5,7 +5,7 @@ This repository contains a script for processing cricket player data. The script
 ## Example of Data Processing
 
 1. **Read Data:**
-   - The script reads data from `testDataSet1.csv` and `testDataSet2.json`.
+   - The script reads data from `testDataSet1.csv` and `testDataSet2.json` input files.
 
 2. **Merge Data:**
    - The data from both files are concatenated into a single DataFrame.
