@@ -19,6 +19,12 @@ This repository contains a script for processing cricket player data. The script
 
 ## Running the Script
 
+Create / update the below paths with the your file/directory paths:
+   common_folder = "C:\\Downloads\\assignment\\inputDataSet"
+    customer1_folder = "C:\\Downloads\\assignment\\OutPut_Dataset\\Customer1"
+    customer2_folder = "C:\\Downloads\\assignment\\OutPut_Dataset\\Customer2"
+    temp_folder = "C:\\Downloads\\assignment\\ResultFolder"
+    
 To run the script, use the following command:
 
 python Data_Processor.py
